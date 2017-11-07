@@ -152,11 +152,9 @@
           </execution>
         </executions>
       </plugin>
-      <!-- General ant tasks, bound to different build phases -->
-      <plugin>
+      <!--plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
-          <!-- Generate web app sources -->
           <execution>
             <id>generate</id>
             <phase>generate-sources</phase>
@@ -173,7 +171,6 @@
                     <exclude name="**/*~"/>
                   </fileset>
                 </copy>
-                <!--The compile.classpath is passed in by maven -->
                 <taskdef classname="org.apache.jasper.JspC" name="jspcompiler" classpathref="maven.compile.classpath"/>
                 <mkdir dir="${build.webapps}/master/WEB-INF"/>
                 <jspcompiler uriroot="${src.webapps}/master" outputdir="${generated.sources}/java" package="org.apache.hadoop.hbase.generated.master" webxml="${build.webapps}/master/WEB-INF/web.xml"/>
@@ -186,7 +183,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>

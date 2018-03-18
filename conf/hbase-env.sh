@@ -40,7 +40,7 @@
 # Below are what we set by default.  May only work with SUN JVM.
 # For more on why as well as other possible settings,
 # see http://wiki.apache.org/hadoop/PerformanceTuning
-export HBASE_OPTS="-XX:+UseConcMarkSweepGC"
+export HBASE_OPTS="-XX:+UseConcMarkSweepGC -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_regionserver_jaas.conf -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_client_jaas.conf -Djavax.security.auth.useSubjectCredsOnly=false  -Dhbase.id.str=hbase"
 
 # Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+
 export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 VERSION=1.3.1
 DISTDIR="$DIR/../pontus-dist/opt/pontus/pontus-hbase";
 TARFILE=$DIR/hbase-assembly/target/hbase-${VERSION}-bin.tar.gz

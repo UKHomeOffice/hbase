@@ -28,7 +28,7 @@
   </property>
   <property>
     <name>hbase.cluster.distributed</name>
-    <value>true</value>
+    <value>false</value>
   </property>
   <property>
     <name>hbase.zookeeper.property.authProvider.1</name>

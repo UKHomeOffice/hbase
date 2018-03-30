@@ -1,0 +1,10 @@
+Client {
+  com.sun.security.auth.module.Krb5LoginModule required
+  useKeyTab=true
+  useTicketCache=true
+  renewTicket=true
+  serviceName="zookeeper"
+  keyTab="/etc/security/keytabs/hbase.service.keytab"
+  principal="hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+

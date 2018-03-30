@@ -40,7 +40,7 @@
 # Below are what we set by default.  May only work with SUN JVM.
 # For more on why as well as other possible settings,
 # see http://wiki.apache.org/hadoop/PerformanceTuning
-export HBASE_OPTS="-XX:+UseConcMarkSweepGC -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_regionserver_jaas.conf -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_client_jaas.conf -Djavax.security.auth.useSubjectCredsOnly=false  -Dhbase.id.str=hbase"
+#export HBASE_OPTS="-XX:+UseConcMarkSweepGC -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_regionserver_jaas.conf -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_client_jaas.conf -Djavax.security.auth.useSubjectCredsOnly=false  -Dhbase.id.str=hbase"
 
 # Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+
 export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m"
@@ -135,3 +135,15 @@ export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:M
 # HBASE_ROOT_LOGGER=INFO,DRFA
 # The reason for changing default to RFA is to avoid the boundary case of filling out disk space as 
 # DRFA doesn't put any cap on the log size. Please refer to HBase-5655 for more context.
+
+export CLIENT_CONF=/opt/pontus/pontus-hbase/current/conf/client.jaas
+export HBASE_SERVER_CONF=/opt/pontus/pontus-hbase/current/conf/server.jaas
+export HBASE_REGION_SERVER_CONF=/opt/pontus/pontus-hbase/current/conf/region-server.jaas
+export HBASE_OPTS="-Djava.security.auth.login.config=$CLIENT_CONF"
+export HBASE_MANAGES_ZK=true
+export HBASE_ZOOKEEPER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF -Dsun.security.krb5.debug=true"
+#export HBASE_MASTER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Dsun.security.krb5.debug=true"
+export HBASE_MASTER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM"
+#export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006 -Dsun.security.krb5.debug=true"
+export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -Dsun.security.krb5.debug=true"
+

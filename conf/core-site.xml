@@ -1,44 +1,8 @@
   <configuration>
 
     <property>
-      <name>fs.default.name</name>
-      <value>hdfs://cluster</value>
-    </property>
-
-    <property>
-      <name>fs.defaultFS</name>
-      <value>hdfs://cluster</value>
-      <final>true</final>
-    </property>
-
-    <property>
-      <name>fs.trash.interval</name>
-      <value>0</value>
-    </property>
-
-    <property>
-      <name>ha.failover-controller.active-standby-elector.zk.op.retries</name>
-      <value>120</value>
-    </property>
-
-    <property>
-      <name>ha.zookeeper.acl</name>
-      <value>sasl:nn:rwcda</value>
-    </property>
-
-    <property>
-      <name>ha.zookeeper.quorum</name>
-      <value>pontus-sandbox.pontusvision.com</value>
-    </property>
-
-    <property>
-      <name>hadoop.custom-extensions.root</name>
-      <value>/hdp/ext/2.6/hadoop</value>
-    </property>
-
-    <property>
       <name>hadoop.http.authentication.simple.anonymous.allowed</name>
-      <value>true</value>
+      <value>false</value>
     </property>
 
     <property>
@@ -114,11 +78,6 @@
     <property>
       <name>hadoop.proxyuser.yarn.groups</name>
       <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.yarn.hosts</name>
-      <value>pontus-sandbox.pontusvision.com</value>
     </property>
 
     <property>
@@ -201,14 +160,49 @@ DEFAULT</value>
       <value>true</value>
     </property>
 
-    <property>
-      <name>mapreduce.jobtracker.webinterface.trusted</name>
-      <value>false</value>
-    </property>
+<property>
+  <name>hadoop.security.group.mapping</name>
+  <value>org.apache.hadoop.security.LdapGroupsMapping</value>
+</property>
 
-    <property>
-      <name>net.topology.script.file.name</name>
-      <value>/etc/hadoop/conf/topology_script.py</value>
-    </property>
+<property>
+  <name>hadoop.security.group.mapping.ldap.url</name>
+  <value>ldap://pontus-sandbox.pontusvision.com</value>
+</property>
 
-  </configuration>
+<property>
+  <name>hadoop.security.group.mapping.ldap.bind.user</name>
+  <value>Administrator@pontusvision.com</value>
+</property>
+
+<property>
+  <name>hadoop.security.group.mapping.ldap.bind.password</name>
+  <value>pa55wordpa55wordPASSWD999</value>
+</property>
+
+<property>
+  <name>hadoop.security.group.mapping.ldap.base</name>
+  <value>CN=Users,DC=pontusvision,DC=com</value>
+</property>
+
+<property>
+  <name>hadoop.security.group.mapping.ldap.search.filter.user</name>
+  <value>(&amp;(objectClass=user)(sAMAccountName={0}))</value>
+</property>
+
+<property>
+  <name>hadoop.security.group.mapping.ldap.search.filter.group</name>
+  <value>(objectClass=group)</value>
+</property>
+
+<property>
+  <name>hadoop.security.group.mapping.ldap.search.attr.member</name>
+  <value>member</value>
+</property>
+
+<property>
+  <name>hadoop.security.group.mapping.ldap.search.attr.group.name</name>
+  <value>cn</value>
+</property>
+
+</configuration>

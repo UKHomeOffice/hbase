@@ -28,12 +28,24 @@ cd current
 cat <<'EOF' >> start-hbase.sh
 #!/bin/bash
 
+kinit -kt /etc/security/keytabs/hbase.service.keytab hbase/`hostname -f`
+
 pushd `dirname $0` > /dev/null
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-popd > /dev/null
-kinit -kt /etc/security/keytabs/hbase.service.keytab hbase/`hostname -f`
+
+cd $SCRIPTPATH
 export HADOOP_HOME=$SCRIPTPATH
-./bin/hbase master --minRegionServers=1 --localRegionServers=1 --masters=1 start
+./bin/hbase zookeeper start&
+export PIDSTOWAIT=$!
+sleep 3;
+./bin/hbase master --minRegionServers=1 --localRegionServers=1 --masters=1 start&
+export PIDSTOWAIT="$PIDSTOWAIT $!"
+sleep 3;
+./bin/hbase regionserver start&
+export PIDSTOWAIT="$PIDSTOWAIT $!"
+wait $PIDSTOWAIT
+popd > /dev/null
+
 EOF
 
 chmod 755 start-hbase.sh

@@ -31,7 +31,7 @@ cat <<'EOF' >> start-hbase.sh
 pushd `dirname $0` > /dev/null
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 popd > /dev/null
-
+kinit -kt /etc/security/keytabs/hbase.service.keytab hbase/`hostname -f`
 export HADOOP_HOME=$SCRIPTPATH
 ./bin/hbase master --minRegionServers=1 --localRegionServers=1 --masters=1 start
 EOF

@@ -167,7 +167,7 @@ DEFAULT</value>
 
 <property>
   <name>hadoop.security.group.mapping.ldap.url</name>
-  <value>ldap://pontus-sandbox.pontusvision.com</value>
+  <value>ldaps://pontus-sandbox.pontusvision.com</value>
 </property>
 
 <property>

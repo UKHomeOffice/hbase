@@ -141,9 +141,9 @@ export HBASE_SERVER_CONF=/opt/pontus/pontus-hbase/current/conf/server.jaas
 export HBASE_REGION_SERVER_CONF=/opt/pontus/pontus-hbase/current/conf/region-server.jaas
 export HBASE_OPTS="-Djava.security.auth.login.config=$CLIENT_CONF"
 export HBASE_MANAGES_ZK=true
-export HBASE_ZOOKEEPER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF -Dsun.security.krb5.debug=true"
+export HBASE_ZOOKEEPER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF -Dsun.security.krb5.debug=false"
 #export HBASE_MASTER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Dsun.security.krb5.debug=true"
 export HBASE_MASTER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM"
 #export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006 -Dsun.security.krb5.debug=true"
-export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -Dsun.security.krb5.debug=true"
+export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -Dsun.security.krb5.debug=false"
 

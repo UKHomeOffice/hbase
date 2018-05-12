@@ -177,6 +177,53 @@ export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_
 
 EOF
 
+cat << 'EOF' >> conf/client.jaas
+Client {
+  com.sun.security.auth.module.Krb5LoginModule required
+  useKeyTab=true
+  useTicketCache=true
+  renewTicket=true
+  serviceName="zookeeper"
+  keyTab="/etc/security/keytabs/hbase.service.keytab"
+  principal="hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+
+EOF
+
+cat << 'EOF' >> conf/server.jaas
+Server {
+  com.sun.security.auth.module.Krb5LoginModule required
+  useKeyTab=true
+  keyTab="/etc/security/keytabs/zookeeper.service.keytab"
+  renewTicket=true
+  serviceName="zookeeper"
+  storeKey=true
+  useTicketCache=true
+  principal="zookeeper/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+Client {
+  com.sun.security.auth.module.Krb5LoginModule required
+  useKeyTab=true
+  useTicketCache=true
+  renewTicket=true
+  serviceName="zookeeper"
+  keyTab="/etc/security/keytabs/hbase.service.keytab"
+  principal="hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+com.sun.security.jgss.krb5.initiate {
+com.sun.security.auth.module.Krb5LoginModule required
+renewTGT=false
+doNotPrompt=true
+useKeyTab=true
+storeKey=true
+useTicketCache=false
+keyTab="/etc/security/keytabs/hbase.service.keytab"
+principal="hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+
+
+
+EOF
 
 cat <<'EOF' >> start-hbase.sh
 #!/bin/bash

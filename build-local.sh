@@ -25,7 +25,7 @@ tar xvfz $TARFILE
 ln -s hbase-$VERSION current
 cd current
 
-tar xvfz ${DIR}/conf.tar.gz 
+cp -r ${DIR}/conf .
 
 cat <<'EOF' >> start-hbase.sh
 #!/bin/bash

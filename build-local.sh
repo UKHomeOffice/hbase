@@ -12,7 +12,7 @@ echo DIR is $DIR
 echo TARFILE is $TARFILE
 
 if [[ ! -f $TARFILE ]]; then
-  MAVEN_OPTS="-Xmx2g -Duser.language=en" LANG=en mvn install package assembly:single -Drat.numUnapprovedLicenses=100 -DskipTests  -Prelease -e
+  MAVEN_OPTS="-Xmx2g -Duser.language=en" LANG=en mvn install package assembly:single -DcompileSource=1.8 -Drat.numUnapprovedLicenses=100 -DskipTests  -Prelease -e
 fi
 
 if [[ ! -d $DISTDIR ]]; then

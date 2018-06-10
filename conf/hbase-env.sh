@@ -40,11 +40,26 @@
 # Below are what we set by default.  May only work with SUN JVM.
 # For more on why as well as other possible settings,
 # see http://wiki.apache.org/hadoop/PerformanceTuning
-export HBASE_OPTS="-XX:+UseConcMarkSweepGC"
+#export HBASE_OPTS="-XX:+UseConcMarkSweepGC -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_regionserver_jaas.conf -Djava.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase_client_jaas.conf -Djavax.security.auth.useSubjectCredsOnly=false  -Dhbase.id.str=hbase"
 
 # Configure PermSize. Only needed in JDK7. You can safely remove it for JDK8+
-export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m"
-export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m -XX:ReservedCodeCacheSize=256m"
+export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -XX:PermSize=128m -XX:MaxPermSize=128m"
+export HBASE_REGIONSERVER_OPTS=" \
+ $HBASE_REGIONSERVER_OPTS  \
+ -XX:PermSize=128m  \
+ -XX:MaxPermSize=128m  \
+ -Dkafka.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase-kafka-jaas.conf \
+ -Dkafka.security.protocol=SASL_SSL \
+ -Dssl.truststore.location=/etc/pki/java/truststore.jks \
+ -Dssl.truststore.password=changeit \
+ -Dssl.keystore.location=/etc/pki/java/localhost.jks \
+ -Dssl.keystore.password=pa55word \
+ -Dssl.key.password=pa55word \
+ -Dsasl.kerberos.service.name="kafka" \
+ -Dkafka.bootstrap.servers=pontus-sandbox.pontusvision.com:9092 \
+ -Dkafka.enable.auto.commit=true \
+ -Dkafka.auto.commit.interval.ms=10000 \
+ "
 
 # Uncomment one of the below three options to enable java garbage collection logging for the server-side processes.
 
@@ -135,3 +150,37 @@ export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -XX:PermSize=128m -XX:M
 # HBASE_ROOT_LOGGER=INFO,DRFA
 # The reason for changing default to RFA is to avoid the boundary case of filling out disk space as 
 # DRFA doesn't put any cap on the log size. Please refer to HBase-5655 for more context.
+
+export CLIENT_CONF=/opt/pontus/pontus-hbase/current/conf/client.jaas
+export HBASE_SERVER_CONF=/opt/pontus/pontus-hbase/current/conf/server.jaas
+export HBASE_REGION_SERVER_CONF=/opt/pontus/pontus-hbase/current/conf/region-server.jaas
+export HBASE_OPTS="-Djava.security.auth.login.config=$CLIENT_CONF"
+export HBASE_MANAGES_ZK=true
+export HBASE_ZOOKEEPER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF -Dsun.security.krb5.debug=false"
+#export HBASE_MASTER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Dsun.security.krb5.debug=true"
+export HBASE_MASTER_OPTS="-Djava.security.auth.login.config=$HBASE_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM"
+#export HBASE_REGIONSERVER_OPTS="-Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com -Djava.security.krb5.realm=PONTUSVISION.COM  -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006 -Dsun.security.krb5.debug=true"
+export HBASE_REGIONSERVER_OPTS=" \
+ -Djava.security.auth.login.config=$HBASE_REGION_SERVER_CONF  \
+ -Dhbase.id.str=hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM  \
+ -Djava.security.krb5.kdc=pontus-sandbox.pontusvision.com  \
+ -Djava.security.krb5.realm=PONTUSVISION.COM   \
+ -Dsun.security.krb5.debug=false \
+ $HBASE_REGIONSERVER_OPTS  \
+ -XX:PermSize=128m  \
+ -XX:MaxPermSize=128m  \
+ -Dkafka.security.auth.login.config=/opt/pontus/pontus-hbase/current/conf/hbase-kafka-jaas.conf \
+ -Dkafka.security.protocol=SASL_SSL \
+ -Dkafka.ssl.truststore.location=/etc/pki/java/truststore.jks \
+ -Dkafka.ssl.truststore.password=changeit \
+ -Dkafka.ssl.keystore.location=/etc/pki/java/localhost.jks \
+ -Dkafka.ssl.keystore.password=pa55word \
+ -Dkafka.ssl.key.password=pa55word \
+ -Dkafka.sasl.kerberos.service.name="kafka" \
+ -Dkafka.bootstrap.servers=pontus-sandbox.pontusvision.com:9092 \
+ -Dkafka.enable.auto.commit=true \
+ -Dkafka.auto.commit.interval.ms=10000 \
+ -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5009 \
+ "
+
+

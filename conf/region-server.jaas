@@ -1,0 +1,36 @@
+Client {
+com.sun.security.auth.module.Krb5LoginModule required
+useKeyTab=true
+storeKey=true
+useTicketCache=false
+keyTab="/etc/security/keytabs/hbase.service.keytab"
+principal="hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+com.sun.security.jgss.krb5.initiate {
+com.sun.security.auth.module.Krb5LoginModule required
+renewTGT=false
+doNotPrompt=true
+useKeyTab=true
+storeKey=true
+useTicketCache=false
+keyTab="/etc/security/keytabs/hbase.service.keytab"
+principal="hbase/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+
+KafkaClient {
+   com.sun.security.auth.module.Krb5LoginModule required
+   useTicketCache=true
+   renewTicket=true
+   serviceName="kafka"
+   useKeyTab=true
+   storeKey=true
+   keyTab="/etc/security/keytabs/kafka.service.keytab"
+   principal="kafka/pontus-sandbox.pontusvision.com@PONTUSVISION.COM";
+};
+ZKClient {
+   com.sun.security.auth.module.Krb5LoginModule required
+   useTicketCache=true
+   renewTicket=true
+   serviceName="zookeeper";
+};
+

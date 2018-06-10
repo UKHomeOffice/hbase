@@ -81,7 +81,5 @@
 
    <property> <name>zookeeper.znode.parent</name> <value>/hbase-secure</value> </property> 
    <property> <name>hadoop.security.authentication</name> <value>kerberos</value> </property> 
-<property><name>zookeeper.session.timeout</name><value>1000000000</value></property>
-
 
 </configuration>
